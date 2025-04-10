@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    height: 60px;
+}
+
+.sidebar {
+    background-color: #7b7b7e; /* Gray */
+    width: 180px;
+    height: 100vh;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2); /* Adds a shadow effect */
+    padding: 15px; /* Adds spacing inside the sidebar */
+    border-radius: 8px 0 0 8px; /* Optional: Rounds the left edges */
+}
+
+
+.content {
+    margin-top: 80px;
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+}
+
+
+
+.content-section.active {
+    display: block;
+}
+
+.active-section {
+    background-color: rgba(0, 0, 0, 0.1); /* Light gray background */
+    border-radius: 5px;
+    padding: 5px;
+}

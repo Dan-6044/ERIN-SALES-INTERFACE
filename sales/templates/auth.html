@@ -1,0 +1,42 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+
+<div class="auth-container">
+    <div class="auth-box">
+        <h4>EPMFL SALESPERSON<br> SIGNING PANEL</h4>
+
+           <!-- Sign In Form -->
+        <form id="signInForm" action="{% url 'auth' %}" method="POST">
+            {% csrf_token %}
+            <div id="loginErrorMessages" class="error-messages">
+                {% if messages %}
+                  {% for message in messages %}
+                    {% if 'login_error' in message.tags %}
+                      <p>{{ message }}</p>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+              
+            <div class="input-group">
+                <label>Email address</label>
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group password-group">
+                <label>Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                <i class="bi bi-eye" id="togglePassword"></i>
+            </div>
+            <div class="forgot-password">
+                <p><a href="/forgot-password">Forgot Password?</a></p>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>        
+    </div>
+</div>
+
+<script src="{% static 'js/auth.js' %}"></script>
+{% endblock %}

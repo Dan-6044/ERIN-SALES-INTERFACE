@@ -1,0 +1,29 @@
+/* navbar.css */
+.navbar {
+    background-color: white;
+    height: 80px;
+  }
+  
+  .navbar-nav .nav-link {
+    margin: 0 10px;
+    color: black;
+    font-size: 13px;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #007bff; /* Optional: Add hover effect */
+  }
+  .dropdown-menu {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .dropdown-menu .form-group {
+    margin-bottom: 0.5rem;
+  }
+  
+  .dropdown-menu .btn {
+    font-size: 0.9rem;
+  }
+  
+  

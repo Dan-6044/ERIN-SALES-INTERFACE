@@ -1,0 +1,99 @@
+/* Centered authentication container */
+.auth-container {
+    background: url('../images/hero1.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 99vh;
+}
+
+
+/* Authentication box */
+.auth-box {
+    background: rgba(255, 255, 255, 0.7); /* White with 80% opacity */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 350px;
+}
+
+
+/* Toggle between Sign In and Sign Up */
+.auth-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.auth-toggle a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.auth-toggle .active {
+    color: blue;
+}
+
+/* Input group styling */
+.input-group {
+    text-align: left;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    padding-right: 40px; /* Space for eye icon */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Password input with eye icon */
+.password-group {
+    position: relative;
+}
+
+.password-group i {
+    position: absolute;
+    right: 10px;
+    top: 65%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: gray;
+    font-size: 18px;
+}
+
+/* Forgot password */
+.forgot-password {
+    text-align: left;
+    font-size: 0.9em;
+}
+
+/* Submit button */
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: rgb(71, 71, 241);
+    color: rgb(19, 15, 15);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: red;
+}
+
+/* Hide sign-up form initially */
+.hidden {
+    display: none;
+}

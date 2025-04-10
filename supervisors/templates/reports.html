@@ -1,0 +1,254 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/operations.css' %}">
+
+<!-- Sticky Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm sticky-top" style="background-color: #f8f9fa;">
+  <div class="container-fluid px-5">
+    <a class="navbar-brand fw-bold text-darkblue me-5" href="#" style="font-size: 1.5rem;">PMFLimited</a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Centered navigation links -->
+      <ul class="navbar-nav gap-4 mx-auto">
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-darkblue {% if request.resolver_match.url_name == 'operations' %}active{% endif %}" href="{% url 'operations' %}">Operations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-darkblue {% if request.resolver_match.url_name == 'sales_reps' %}active{% endif %}" href="{% url 'sales_reps' %}">Add Sales Rep</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-darkblue {% if request.resolver_match.url_name == 'add_branch' %}active{% endif %}" href="{% url 'add_branch' %}">Add Branch</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-darkblue {% if request.resolver_match.url_name == 'reports' %}active{% endif %}" href="{% url 'reports' %}">Reports</a>
+        </li>
+      </ul>
+
+      <!-- Logout button at right -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-darkblue" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container-fluid mt-5 mb-5 shadow-lg p-4 bg-white rounded" style="min-height: 100vh; overflow-y: auto;">
+  <h2 class="mb-4 text-darkblue text-center">Sales Reports</h2>
+
+  <!-- Cards Section -->
+<div class="row mb-4">
+    <!-- Total Customers -->
+    <div class="col-md-2 col-12 mb-3 d-flex">
+      <div class="card shadow-sm bg-info text-white w-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">
+            <i class="bi bi-person-fill"></i> Total Customers
+          </h5>
+          <p class="card-text display-4">{{ total_customers }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Total Invoice Amount -->
+    <div class="col-md-2 col-12 mb-3 d-flex">
+      <div class="card shadow-sm bg-warning text-white w-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">
+            <i class="bi bi-file-earmark-earphones"></i> Total Invoice Amount
+          </h5>
+          <p class="card-text display-4">{{ total_sales }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Total Profit -->
+    <div class="col-md-2 col-12 mb-3 d-flex">
+      <div class="card shadow-sm bg-success text-white w-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">
+            <i class="bi bi-currency-dollar"></i> Total Profit
+          </h5>
+          <p class="card-text display-4">{{ total_profit }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Total Balances -->
+    <div class="col-md-2 col-12 mb-3 d-flex">
+      <div class="card shadow-sm bg-success text-white w-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">
+            <i class="bi bi-currency-dollar"></i> Total Balance
+          </h5>
+          <p class="card-text display-4">{{ total_balance }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Total Sales Representatives -->
+    <div class="col-md-2 col-12 mb-3 d-flex">
+      <div class="card shadow-sm bg-primary text-white w-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">
+            <i class="bi bi-person-bounding-box"></i> Total Sales Reps
+          </h5>
+          <p class="card-text display-4">{{ total_sales_reps }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Total Branches -->
+    <div class="col-md-2 col-12 mb-3 d-flex">
+      <div class="card shadow-sm bg-secondary text-white w-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">
+            <i class="bi bi-geo-alt"></i> Total Branches
+          </h5>
+          <p class="card-text display-4">{{ total_branches }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Centered Tab Toggle Section -->
+<div class="d-flex justify-content-center align-items-center min-vh-5">
+    <ul class="nav nav-pills mb-3" id="salesReportTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="branches-tab" data-bs-toggle="pill" href="#branches" role="tab" aria-controls="branches" aria-selected="true">Branches</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="sales-reps-tab" data-bs-toggle="pill" href="#sales-reps" role="tab" aria-controls="sales-reps" aria-selected="false">Sales Representatives</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="sales-tab" data-bs-toggle="pill" href="#sales" role="tab" aria-controls="sales" aria-selected="false">Sales</a>
+      </li>
+    </ul>
+  </div>
+  
+
+  <div class="tab-content" id="salesReportTabContent">
+    <!-- Branches Table -->
+    <div class="tab-pane fade show active" id="branches" role="tabpanel" aria-labelledby="branches-tab">
+      <div class="table-responsive">
+        <table id="branchesTable" class="table table-striped table-bordered compact">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Location</th>              
+            </tr>
+          </thead>
+          <tbody>
+            {% for branch in branches %}
+              <tr>
+                <td>{{ branch.name }}</td>
+                <td>{{ branch.location }}</td>                
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Sales Representatives Table -->
+    <div class="tab-pane fade" id="sales-reps" role="tabpanel" aria-labelledby="sales-reps-tab">
+      <div class="table-responsive">
+        <table id="salesRepsTable" class="table table-striped table-bordered compact">
+          <thead>
+            <tr>
+              <th>Sales Rep Name</th>
+              <th>Phone</th>
+              <th>Branch</th>
+              <th>Created By</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for rep in sales_reps %}
+              <tr>
+                <td>{{ rep.user.first_name }} {{ rep.user.last_name }}</td>
+                <td>{{ rep.phone }}</td>
+                <td>{{ rep.branch.name }}</td>
+                <td>{{ rep.created_by.first_name }} {{ rep.created_by.last_name }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Sales Table -->
+    <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">
+      <div class="table-responsive">
+        <table id="salesTable" class="table table-striped table-bordered compact">
+          <thead>
+            <tr>
+              <th>Customer Name</th>
+              <th>Total Amount</th>
+              <th>Invoice Amount</th>
+              <th>Amount Paid</th>
+              <th>Balance</th>
+              <th>Profit</th>
+              <th>Place of Delivery</th>
+              <th>Payment Status</th>
+              <th>Sales Rep</th>
+              <th>Branch</th>
+              <th>Sale Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sale in sales %}
+              <tr>
+                <td>{{ sale.customer_name }}</td>
+                <td>{{ sale.total_amount }}</td>
+                <td>{{ sale.invoice_amount }}</td>
+                <td>{{ sale.amount_paid }}</td>
+                <td>{{ sale.balance }}</td>
+                <td>{{ sale.profit }}</td>
+                <td>{{ sale.place_of_delivery }}</td>
+                <td>{{ sale.payment_status }}</td>
+                <td>{{ sale.sales_rep.user.first_name }} {{ sale.sales_rep.user.last_name }}</td>
+                <td>{{ sale.branch.name }}</td>
+                <td>{{ sale.created_at }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <!-- DataTables JS and CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#branchesTable, #salesRepsTable, #salesTable').DataTable({
+        "paging": true, 
+        "lengthChange": true, 
+        "searching": true,
+        "ordering": true,
+        "info": true, 
+        "autoWidth": false,
+        "pageLength": 10,
+        "lengthMenu": [5, 10, 25, 50, 100],
+        "order": []
+      });
+    });
+  </script>
+{% endblock %}

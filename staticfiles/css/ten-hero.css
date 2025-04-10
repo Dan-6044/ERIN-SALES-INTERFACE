@@ -1,0 +1,123 @@
+   /* Hero Section Styles */
+   .hero-section {
+    height: 75vh;
+    background-image: url("/static/images/hero4.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
+}
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    font-weight: bold;
+}
+.input-container {
+    position: absolute;
+    bottom: 70px;
+    left: 1%;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
+.input-container input {
+    width: 70%;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.input-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+}
+
+/* Second Section Styling */
+.second-section {
+display: flex;
+justify-content: space-between;
+padding: 80px 10%;
+margin-top: -20px;
+margin-bottom: 100px;
+}
+
+.left-side {
+width: 45%;
+padding-right: 20px;
+}
+
+.left-side h4 {
+font-size: 2rem;
+font-weight: bold;
+margin-bottom: 10px;
+}
+
+.left-side p {
+font-size: 1.2rem;
+margin-bottom: 20px;
+}
+
+.left-side a {
+font-size: 1.2rem;
+padding: 10px 20px;
+}
+
+/* Right Side Styling */
+.right-side {
+width: 40%;
+position: relative;
+display: flex;
+justify-content: flex-start;
+flex-direction: column;
+align-items: flex-start;
+}
+
+.image-container {
+position: absolute;
+width: 70%;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+border-radius: 10px;
+padding: 20px;
+transition: all 0.3s ease;
+background-color: #fff; /* Background to make text more readable */
+}
+
+.image-container img {
+width: 100%;
+object-fit: cover;
+border-radius: 10px;
+}
+
+/* Text inside image container */
+.image-container h5 {
+font-size: 1rem;
+font-weight: bold;
+text-align: center;
+margin-top: 10px;
+margin-left: 0;
+}
+
+/* Overlapping Images */
+.first {
+top: 20%;
+left: 14%;
+}
+
+.second {
+top: 0;
+left: 2%;
+}
+
+.third {
+top: 25%;
+left: 25%;
+z-index: -1; /* Send third image behind others */
+}
